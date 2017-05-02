@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     /**
@@ -11,6 +11,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+    use SoftDeletes;
     protected $fillable = [
         'name', 'karyawan_id', 'cabang_id', 'level', 'email', 'password',
     ];

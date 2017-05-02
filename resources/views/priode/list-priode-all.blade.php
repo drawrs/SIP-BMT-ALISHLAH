@@ -41,8 +41,9 @@
                   <td>Priode  <strong>{{$data->tgl_priode_awal}}</strong> - <strong>{{$data->tgl_priode_akhir}}</strong></td>
                   <td>
                     <ul>
-                      <li>NAMA PEGAWAI : <b><a href="{{route('karyawan.edit', ['edit' => $data->user_id])}}">{{$data->user->detail->nama}}</a></b></li>
-                      <li><b>{{$data->user->cabang->name}}</b></li>
+                    {{-- mencegah karyawan yg datanya ngga ada --}}
+                      <li>NAMA PEGAWAI : <b><a href="{{route('karyawan.edit', ['edit' => $data->user_id])}}">{!! count($data->user) > 0 ? $data->user->detail->nama: "<small><i>(data pegawai tidak valid)</i></small>"!!}</a></b></li>
+                      <li><b>{{count($data->user) > 0 ? $data->user->cabang->name: ""}}</b></li>
                     </ul>
                   </td>
                   <td><a href="{{route('rekap.priode', ['priode' => $data->id])}}"><button class="btn btn-default"><i class="fa fa-book"></i> Lihat</button></a>&nbsp;

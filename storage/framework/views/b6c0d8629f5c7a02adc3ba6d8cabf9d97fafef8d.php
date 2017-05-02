@@ -93,6 +93,9 @@
           <th scope="col">TRANSPORT</th>
           <th scope="col">UM</th>
           <th scope="col">TUNKEL</th>
+          <th scope="col">PENSIUN</th>
+          <th scope="col">BPJSKES</th>
+          <th scope="col">BPJSTK</th>
           <th scope="col">JML GAJI</th>
           <th scope="col">KASBON</th>
           <th scope="col">ANGS</th>
@@ -117,11 +120,14 @@
         $t_angs = 0;
         $t_simwa = 0;
         $t_bpjs = 0;
+        $t_bpjs_kes = 0;
+        $t_bpjs_tk = 0;
         $t_arisan = 0;
         $t_lainnya = 0;
         $t_zis = 0;
         $t_jml_pot = 0;
         $t_jml_terima = 0;
+        $t_pensiun = 0;
         $no = 1;
         ?>
         <?php foreach($rekap as $data_rekap): ?>
@@ -142,12 +148,13 @@
                             // klo blm nikah
           $tunkel = $data_rekap->tunkel;
         }
+        
                           // total tunkelnya
         $total_tunkel = $tunkel + $data_rekap->pensiun + $data_rekap->bpjs_kes + $data_rekap->bpjs_tk;
-
+        // dapetin gaji total
         $gaji_total = $data_rekap->gaji_pokok + $data_rekap->tunjab + $data_rekap->uang_transport + $data_rekap->uang_makan + $total_tunkel;
 
-                          //$zis = ($gaji_total*$data_rekap->p_zis)/100;
+        //$zis = ($gaji_total*$data_rekap->p_zis)/100;
         $zis = hitung_zis($gaji_total, $data_rekap->p_zis);
 
         $lainnya = $data_rekap->p_donasi + $data_rekap->p_vipm + $data_rekap->p_qh + $data_rekap->p_dplk;
@@ -172,6 +179,9 @@
             $t_zis += $zis;
             $t_jml_pot += $jml_pot;
             $t_jml_terima += $jml_diterima;
+                // bpjs
+            $t_bpjs_tk += $data_rekap->bpjs_tk;
+            $t_bpjs_kes += $data_rekap->bpjs_kes;
 
         ?>
         <?php else: ?>
@@ -193,6 +203,10 @@
             $t_zis += $zis;
             $t_jml_pot += $jml_pot;
             $t_jml_terima += $jml_diterima;
+            $t_pensiun += $data_rekap->pensiun;
+                // bpjs
+            $t_bpjs_tk += $data_rekap->bpjs_tk;
+            $t_bpjs_kes += $data_rekap->bpjs_kes;
             ?>
         <?php endif; ?>
         <?php endif; ?>
@@ -214,6 +228,9 @@
           <td class="curr"><b><u><?php echo e(rupiah($t_transport)); ?></u></b></td>
           <td class="curr"><b><u><?php echo e(rupiah($t_um)); ?></u></b></td>
           <td class="curr"><b><u><?php echo e(rupiah($t_tunkel)); ?></u></b></td>
+          <td class="curr"><b><u><?php echo e(rupiah($t_pensiun)); ?></u></b></td>
+          <td class="curr"><b><u><?php echo e(rupiah($t_bpjs_kes)); ?></u></b></td>
+          <td class="curr"><b><u><?php echo e(rupiah($t_bpjs_tk)); ?></u></b></td>
           <td class="curr"><b><u><?php echo e(rupiah($t_jml_gaji)); ?></u></b></td>
           <td class="curr"><b><u><?php echo e(rupiah($t_kasbon)); ?></u></b></td>
           <td class="curr"><b><u><?php echo e(rupiah($t_angs)); ?></u></b></td>
