@@ -1,0 +1,50 @@
+#content {
+	margin-left: 230px;
+	padding: 20px 10px 0 0;
+	margin-bottom:2px;
+	border:1px solid #F95;
+}
+#content p {
+	font-size: 85%;
+	line-height: 1.8em;
+	padding-left: 2em;
+}
+
+h2 {
+	font:Verdana, Geneva, sans-serif;
+	color:#000;
+	background-color: transparent;
+	border-bottom: 1px  #265180;
+}
+table {
+	font-family:Verdana, Geneva, sans-serif; 
+	font-size: 10pt;
+	border-width: 1px;
+	border-style: solid;
+	border-color:#000;
+	border-collapse: collapse;
+	margin: 10px 0px;
+}
+th{
+	color:#000;
+	font-size: 7pt;
+	text-transform: uppercase;
+	padding: 0.5em;
+	border-width: 1px;
+	border-style: solid;
+	border-color:#000;
+	border-collapse: collapse;
+	background-color:#FFF;
+}
+
+
+
+td{
+	padding: 0.5em;
+	vertical-align: top;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000;
+	border-collapse: collapse;
+}
+
