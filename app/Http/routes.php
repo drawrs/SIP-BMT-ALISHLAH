@@ -279,3 +279,8 @@ Route::get('/rekap-gaji/priode/{rekap_id}', [
             'as' => 'rekap.priode'/*,
             'middleware' => 'admin'*/
             ]);
+Route::get('/rekap-gaji/priode-by-date/{user_id}', [
+            'uses' => 'PriodeController@getViewRekapByDate',
+            'as' => 'rekap.priodeByDate'/*,
+            'middleware' => 'admin'*/
+            ]);

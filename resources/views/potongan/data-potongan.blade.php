@@ -38,6 +38,7 @@
                   <th rowspan="2">Nama Karyawan</th>
                   <th rowspan="2">KASBON</th>
                   <th rowspan="2">ANGSURAN</th>
+                  <th rowspan="2">ANGSURAN PKP</th>
                   <th rowspan="2">SIMWA</th>
                   <th rowspan="2">BPJS</th>
                   <th rowspan="2">ARISAN</th>
@@ -60,6 +61,7 @@
                   <td><a href="{{route('karyawan.edit', ['id' => $user->id])}}">{{$user->detail->nama}}</a></td>
                   <td>{{rupiah($user->potongan->kasbon)}}</td>
                   <td>{{rupiah($user->potongan->angs)}}</td>
+                  <td>{{rupiah($user->potongan->angs_pkp)}}</td>
                   <td>{{rupiah($user->potongan->simwa)}}</td>
                   <td>{{rupiah($user->potongan->bpjs)}}</td>
                   <td>{{rupiah($user->potongan->arisan)}}</td>
@@ -69,7 +71,7 @@
                   <td><i>{{rupiah($user->potongan->qh)}}</i></td>
                   <td><i>{{rupiah($user->potongan->dplk)}}</i></td>
                   <td align="center">
-                  <button class="btn btn-primary" onclick="editGaji('{{$user->potongan->id}}','{{$user->potongan->kasbon}}','{{$user->potongan->angs}}','{{$user->potongan->simwa}}','{{$user->potongan->bpjs}}','{{$user->potongan->arisan}}','{{$user->potongan->zis}}', '{{$user->potongan->donasi}}', '{{$user->potongan->vipm}}', '{{$user->potongan->qh}}', '{{$user->potongan->dplk}}')">Edit</button>
+                  <button class="btn btn-primary" onclick="editGaji('{{$user->potongan->id}}','{{$user->potongan->kasbon}}','{{$user->potongan->angs}}','{{$user->potongan->angs_pkp}}','{{$user->potongan->simwa}}','{{$user->potongan->bpjs}}','{{$user->potongan->arisan}}','{{$user->potongan->zis}}', '{{$user->potongan->donasi}}', '{{$user->potongan->vipm}}', '{{$user->potongan->qh}}', '{{$user->potongan->dplk}}')">Edit</button>
                   </td>
                 </tr>
                  @endforeach
@@ -109,6 +111,10 @@
           <div class="form-group">
           <label for="">ANGSURAN</label>
           <input type="number" class="form-control pull-right" name="angs" id="angs" required="1">
+          </div>
+           <div class="form-group">
+          <label for="">ANGSURAN PKP</label>
+          <input type="number" class="form-control pull-right" name="angs_pkp" id="angs_pkp" required="1">
           </div>
           <div class="form-group">
           <label for="">SIMPANAN WAJIB</label>
@@ -173,10 +179,11 @@
 @endsection
 @section('bottom-script')
 <script>
-   function editGaji(user_id, kasbon, angs,simwa,bpjs,arisan,zis,donasi, vipm, qh, dplk){
+   function editGaji(user_id, kasbon, angs,angs_pkp ,simwa,bpjs,arisan,zis,donasi, vipm, qh, dplk){
         var user_id = $('#user_id').val($.trim(user_id));
         var kasbon = $('#kasbon').val($.trim(kasbon));
         var angs = $('#angs').val($.trim(angs));
+        var angs_pkp = $('#angs_pkp').val($.trim(angs_pkp));
         var simwa = $('#simwa').val($.trim(simwa));
         var bpjs = $('#bpjs').val($.trim(bpjs));
         var arisan = $('#arisan').val($.trim(arisan));
@@ -189,7 +196,7 @@
 
         $('#modal-edit').modal('show');
    }
-   function saveGaji(user_id, kasbon, angs,simwa,bpjs,arisan,zis,donasi, vipm, qh, dplk){
+   function saveGaji(user_id, kasbon, angs, angs_pkp,simwa,bpjs,arisan,zis,donasi, vipm, qh, dplk){
        $.ajax({
            url: '{{url('potongan/edit')}}',
            type: 'POST',
@@ -197,6 +204,7 @@
                     user_id: user_id,
                     kasbon: kasbon,
                     angs: angs,
+                    angs_pkp: angs_pkp,
                     simwa: simwa,
                     bpjs: bpjs,
                     arisan: arisan,
@@ -229,6 +237,7 @@
             var user_id = $('#user_id').val();
             var kasbon = $('#kasbon').val();
             var angs = $('#angs').val();
+            var angs_pkp = $('#angs_pkp').val();
             var simwa = $('#simwa').val();
             var bpjs = $('#bpjs').val();
             var arisan = $('#arisan').val();
@@ -237,13 +246,13 @@
             var vipm = $('#vipm').val();
             var qh = $('#qh').val();
             var dplk = $('#dplk').val();
-            if (kasbon.length === 0 || angs.length === 0 || simwa.length === 0 || bpjs.length === 0 || arisan.length === 0 || zis.length === 0 || donasi.length === 0 || vipm.length === 0 || qh.length === 0 || dplk.length === 0 ){
+            if (kasbon.length === 0 || angs.length === 0 || angs_pkp.length === 0 || simwa.length === 0 || bpjs.length === 0 || arisan.length === 0 || zis.length === 0 || donasi.length === 0 || vipm.length === 0 || qh.length === 0 || dplk.length === 0 ){
                 alert("SEMUA KOLOM WAJID DI ISI!");
                 $('#btnSave').prop('disabled', false);
                 return;
             }
 
-            saveGaji(user_id, kasbon, angs,simwa,bpjs,arisan,zis,donasi, vipm, qh, dplk);
+            saveGaji(user_id, kasbon, angs, angs_pkp,simwa,bpjs,arisan,zis,donasi, vipm, qh, dplk);
             //location.reload();
         });
         $('#opsiCab').change(function(event) {

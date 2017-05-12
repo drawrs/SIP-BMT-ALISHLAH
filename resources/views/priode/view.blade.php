@@ -11,7 +11,7 @@
           @else
 
           @endif
-          <div class="box">
+          <div class="box" style="{{ isset($_GET['date_range']) ? "display: none":""}}">
             <div class="box-header">
               <h3 class="box-title"><strong>KETERANGAN PRIODE</strong></h3>
               <a href="{{route('rekap.struk.print', ['rekap_id' => $data_rekap->id])}}"><button class="btn btn-default btn-flat pull-right"><i class="fa fa-print"></i> <strong>CETAK STRUK GAJI</strong></button></a>
@@ -38,7 +38,7 @@
                       <b><a href="{{route('karyawan.edit', ['edit' => $data_rekap->user_id])}}">{{$user->detail->nama}}</a></b>
                     </td>
                     <td>
-                      <strong>{{$data_rekap->tgl_priode_awal}}</strong> - <strong>{{$data_rekap->tgl_priode_akhir}}</strong>
+                      <strong>{{toDate($data_rekap->tgl_priode_awal)}}</strong> - <strong>{{toDate($data_rekap->tgl_priode_akhir)}}</strong>
                     </td>
                     <td>
                     <?php
@@ -224,7 +224,7 @@
           </div>
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">DETAIL ABSENSI<strong></strong></h3>
+              <h3 class="box-title">DETAIL ABSENSI : <a href="{{route('karyawan.edit', ['edit' => $data_rekap->user_id])}}">{{$user->detail->nama}}</a><strong></strong></h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
@@ -245,11 +245,19 @@
                 <tbody>
                   <?php
                   $no = 1;
+                  $total_menit_kerja =  0;
+                  $total_jam_kerja =  0;
+                  $total_hari_kerja = 0;
                   ?>
                   @foreach($data_absen as $data)
+                  @php
+                  $total_menit_kerja += $data->menit_kerja;
+                  $total_jam_kerja +=  $data->jam_kerja;
+                  $total_hari_kerja++;
+                  @endphp
                   <tr>
                     <td>{{$no++}}</td>
-                    <td>{{$data->tgl}}</td>
+                    <td>{{toDate($data->tgl)}}</td>
                     <td>{{$data->jam_in}}</td>
                     <td>{{$data->jam_out}} @if(is_null($data->jam_out)) <i><strong>Belum Absen</strong></i> @endif</td>
                     <td>{{$data->out_ijin}} @if(is_null($data->out_ijin)) <i><strong>Belum Ijin</strong></i> @endif</td>
@@ -260,6 +268,14 @@
                     
                   </tr>
                   @endforeach
+                  <tr style="background-color: #caef58">
+                    <td colspan="4"></td>
+                    <td><b>TOTAL</b></td>
+                    <td><strong>{{$total_hari_kerja}} Hari</strong></td>
+                    <td><strong>{{$total_jam_kerja}}</strong> Jam</td>
+                    <td><strong>{{$total_menit_kerja}}</strong> Menit</td>
+                    <td></td>
+                  </tr>
                 
                 <!-- disini -->
                 </tfoot>

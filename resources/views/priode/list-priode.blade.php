@@ -11,10 +11,17 @@
           
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">REKAP ABSENSI : {{$user->detail->nama}}</h3>
+              <h3 class="box-title">REKAP ABSENSI : <strong><a href="{{route('karyawan.edit', ['edit' => $user->id])}}">{{$user->detail->nama}}</a> </strong></h3>
             </div>
+
             <!-- /.box-header -->
             <div class="box-body table-responsive">
+            <form action="form">
+              <div class="form-group">
+                <label for="">Lihat Berdasarkan Tanggal</label>
+                <input type="text" class="form-control" placeholder="Cth: 07/04/2016 - 10/04/2016" id="tgl-absen" required="1" name="tgl-absen" >
+              </div>
+            </form>
               <table id="example" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -49,7 +56,7 @@
               </table>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">{!!$data_rekap->links()!!}</div>
+            <div class="box-footer">{!!$data_rekap->links()!!} {{$user->id}} a</div>
           </div>
           <!-- /.box -->
          
@@ -64,7 +71,18 @@
 <link rel="stylesheet" type="text/css" href="{{URL::to('dist/sweetalert.css')}}">
 @endsection
 @section('bottom-script')
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="{{url('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <script>
-  
+ $(document).ready(function() {
+   $('#tgl-absen').daterangepicker();
+   $('#tgl-absen').change(function(event) {
+     /* Act on the event */
+     var dateRange = $('#tgl-absen').val();
+     var url = "{{url("/rekap-gaji/priode-by-date")}}/{{$user->id}}?date_range=" + dateRange;
+     window.location.href = url;
+   });
+ });
 </script>
 @endsection

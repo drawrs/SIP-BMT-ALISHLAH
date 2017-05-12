@@ -31,6 +31,7 @@ class PriodeController extends Controller
     protected $kotaCetak = "Cirebon";
     protected $namaUnit = "UNIT SIMPAN PINJAM PEMBIAYAAN SYARI'AH";
     protected $namaHRD = "DIAN CHUSNUL CHOTIMAH";
+
     public function getListUser($id){
         $user_id = $id;
 
@@ -47,7 +48,35 @@ class PriodeController extends Controller
         $user_id = Auth::user()->id;
         return $this->getListUser($user_id);
     }
-    public function getViewRekap($rekap_id){
+    public function getViewRekapByDate($user_id, Request $request){
+        if (isset($request->date_range)) {
+            $date_range = $request->date_range;
+            $start_date = dateFromRange($date_range, 'start');
+            $end_date = dateFromRange($date_range, 'end');
+        }
+
+        // Jaga jaga kalo bukan hrd yg nyoba print struk user lain
+        if (Auth::user()->level !== 'hrd') {
+            if (Auth::user()->id !== $user_id) {
+                return redirect()->route('home')->with(['message' => "Anda tidak memiliki ijin untuk mencetak struk ini!", 'type' => "warning"]);
+            }
+        }
+        // nambahin tampilkan priode berdasarkan tanggal
+        $data_absen = Priode::whereBetween('tgl', [$start_date, $end_date])->where('user_id', $user_id)->get();
+
+        $user = User::find($user_id);
+        $bulan = Bulan::orderBy('bulan_id','asc')->get();
+        
+        return view('priode.viewByDateRekap', compact('data_absen', 'bulan','user', 'cek'));
+    }
+    public function getViewRekap($rekap_id, Request $request){
+        // kalo terdeteksi date range
+        if (isset($request->date_range)) {
+            $date_range = $request->date_range;
+            $start_date = dateFromRange($date_range, 'start');
+            $end_date = dateFromRange($date_range, 'end');
+        }
+
         $data_rekap = TmpGaji::find($rekap_id);
         if (is_null($data_rekap)) {
             return redirect()->route('home')->with(['message' => "DATA TIDAK DITEMUKAN!", 'type' => "danger"]);
@@ -58,7 +87,12 @@ class PriodeController extends Controller
                 return redirect()->route('home')->with(['message' => "Anda tidak memiliki ijin untuk mencetak struk ini!", 'type' => "warning"]);
             }
         }
-        $data_absen = Priode::where(['rekap_id' => $data_rekap->id])->get();
+        // nambahin tampilkan priode berdasarkan tanggal
+        if (!isset($request->date_range)) { // kalo ngga pake tanggal
+            $data_absen = Priode::where(['rekap_id' => $data_rekap->id])->get();
+        } else {
+            $data_absen = Priode::whereBetween('tgl', [$start_date, $end_date])->get();
+        }
         $user = User::find($data_rekap->user_id);
         $cek = $data_rekap->count();
         $bulan = Bulan::orderBy('bulan_id','asc')->get();

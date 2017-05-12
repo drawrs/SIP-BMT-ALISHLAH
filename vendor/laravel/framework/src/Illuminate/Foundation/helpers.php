@@ -864,3 +864,34 @@ if (! function_exists('parseDate')) {
     }
 
 }
+if (! function_exists('dateFromRange')) {
+    
+    function dateFromRange($date, $position)
+    {
+        $tgl = explode("-", $date);
+        // pisah2 data dan hilangkan spasi
+        //  bentuk data 12/31/2016
+        $n_awal = explode("/", trim($tgl[0]));
+        $n_akhir = explode("/", trim($tgl[1]));
+        
+
+        $tgl_awal = $n_awal[2]."-".$n_awal[0]."-".$n_awal[1];
+        $tgl_akhir = $n_akhir[2]."-".$n_akhir[0]."-".$n_akhir[1];
+
+        switch ($position) {
+            case 'start':
+                $result = $tgl_awal;
+                break;
+            case 'end':
+                $result = $tgl_akhir;
+                break;
+            default:
+                $result = "0000-00-00";
+                break;
+        }
+        return $result;
+    }
+
+}
+
+ 

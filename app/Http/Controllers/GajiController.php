@@ -101,6 +101,7 @@ class GajiController extends Controller
         $gaji = Potongan::find($request->user_id);
         if ($gaji->update(['kasbon' => $request->kasbon,
             'angs' => $request->angs,
+            'angs_pkp' => $request->angs_pkp,
             'simwa' => $request->simwa,
             'bpjs' => $request->bpjs,
             'arisan' => $request->arisan,
