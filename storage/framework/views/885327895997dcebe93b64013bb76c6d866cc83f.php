@@ -96,7 +96,7 @@
           <tr>
             <td><?php echo e($c_out->kode); ?></td>
             <td>
-              <a href='<?php echo e(route('karyawan.edit', ['id' => $c_out->user_id])); ?>' target="_blank"><?php echo e($c_out->user->name); ?></a>
+              <a href='<?php echo e(route('karyawan.edit', ['id' => $c_out->user_id])); ?>' target="blank"><?php echo e($c_out->user->name); ?></a>
             </td>
             <td><?php echo e($c_out->user->detail->jabatan->name); ?></td>
             <td><?php echo e($c_out->qty); ?> Hari</td>
@@ -119,7 +119,7 @@
               <?php endif; ?>
             </td>
             <td>
-              <button class="btn btn-default" onclick="javascript:wincal=window.open('<?php echo e(route('cuti.print-cuti', ['id' => $c_out->id])); ?>','Lihat Data','width=990,height=500,scrollbars=1');"><i class="fa fa-print"></i> Print</button>
+              <button class="btn btn-default" onclick="javascript:wincal=window.open('<?php echo e(route('cuti.print-cuti', ['id' => $c_out->id])); ?>','Lihat Data','width=990,height=500,scrollbars=1');" <?php echo e(($c_out->status == 4)? "disabled": ""); ?>><i class="fa fa-print"></i> Print</button>
             </td>
           </tr>
           <?php endforeach; ?>

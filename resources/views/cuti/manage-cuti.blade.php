@@ -120,7 +120,7 @@
               @endif
             </td>
             <td>
-              <button class="btn btn-default" onclick="javascript:wincal=window.open('{{route('cuti.print-cuti', ['id' => $c_out->id])}}','Lihat Data','width=990,height=500,scrollbars=1');"><i class="fa fa-print"></i> Print</button>
+              <button class="btn btn-default" onclick="javascript:wincal=window.open('{{route('cuti.print-cuti', ['id' => $c_out->id])}}','Lihat Data','width=990,height=500,scrollbars=1');" {{ ($c_out->status == 4)? "disabled": ""}}><i class="fa fa-print"></i> Print</button>
             </td>
           </tr>
           @endforeach
