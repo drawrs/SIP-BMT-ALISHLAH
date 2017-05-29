@@ -409,6 +409,26 @@ class MainController extends Controller
         }
         return '2';
     }
+    public function cuti_out_batal(Request $request){
+        $cuti_out = CutiOut::find($request->c_out_id);
+        if (is_null($cuti_out)) {
+            $msg = "Cuti tidak ditemukan!";
+            $type = "danger";
+        }
+        // cari cuti asal
+        $cuti = Cuti::where('user_id', $cuti_out->user_id);
+        
+        // Jika cuti tahunan yang dibatalkan
+        if ($cuti_out->jenis_cuti_id == 0) {
+            $cuti->update(['qty' => $cuti->first()->qty + $cuti_out->qty]);
+        }
+        // update status jadi di batalkan = 4
+        if ($cuti_out->update(['status' => 4])) {
+            $msg = "Cuti telah dibatalkan";
+            $type = "success";
+        }
+        return redirect()->back()->with(['message' => $msg, 'type' => $type]);
+    }
     public function report_absen ()
     {
         $absen = Absen::where('user_id', '1')
@@ -725,6 +745,7 @@ class MainController extends Controller
                 'uang_transport' => $uang_transport,
                 'p_kasbon' => $potongan->kasbon,
                 'p_angs' => $potongan->angs,
+                'p_angs_pkp' => $potongan->angs_pkp,
                 'p_simwa' => $potongan->simwa,
                 'p_bpjs' => $potongan->bpjs,
                 'p_arisan' => $potongan->arisan,
@@ -979,6 +1000,7 @@ class MainController extends Controller
                                 'uang_transport' => $uang_transport,
                                 'p_kasbon' => $potongan->kasbon,
                                 'p_angs' => $potongan->angs,
+                                'p_angs_pkp' => $potongan->angs_pkp,
                                 'p_simwa' => $potongan->simwa,
                                 'p_bpjs' => $potongan->bpjs,
                                 'p_arisan' => $potongan->arisan,

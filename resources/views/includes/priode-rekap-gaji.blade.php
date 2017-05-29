@@ -14,6 +14,7 @@
   <td class="curr">{{$gaji_total}}</td>
   <td class="curr">{{$data_rekap->p_kasbon}}</td>
   <td class="curr">{{$data_rekap->p_angs}}</td>
+  <td class="curr">{{$data_rekap->p_angs_pkp}}</td>
   <td class="curr">{{$data_rekap->p_simwa}}</td>
   <td class="curr">{{$data_rekap->p_bpjs}}</td>
   <td class="curr">{{$data_rekap->p_arisan}}</td>

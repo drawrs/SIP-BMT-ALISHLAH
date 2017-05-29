@@ -1,0 +1,5 @@
+12 Mei 2017
+- Nambahin kolom angs_pkp (table: potongan)  v
+- Nambahin kolom p_angs_pkp (table: rekap_priode_gaji) v
+- views bagian report dan include
+- controller Main & Potongan & rekap (semua aja uploadnya)

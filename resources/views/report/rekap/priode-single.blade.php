@@ -96,6 +96,7 @@
                         <th scope="col">JML GAJI</th>
                         <th scope="col">KASBON</th>
                         <th scope="col">ANGS</th>
+                        <th scope="col">ANGS_PKP</th>
                         <th scope="col">SIMWA</th>
                         <th scope="col">BPJS</th>
                         <th scope="col">ARISAN</th>
@@ -112,7 +113,7 @@
 
                     //$zis = ($gaji_total*$data_rekap->p_zis)/100;
                     $zis = hitung_zis($gaji_total, $data_rekap->p_zis);
-                    $jml_pot = $data_rekap->p_kasbon + $data_rekap->p_angs + $data_rekap->p_simwa + $data_rekap->p_bpjs + $data_rekap->p_arisan + $data_rekap->p_lain + $zis;
+                    $jml_pot = $data_rekap->p_kasbon + $data_rekap->p_angs + $data_rekap->p_angs_pkp + $data_rekap->p_simwa + $data_rekap->p_bpjs + $data_rekap->p_arisan + $data_rekap->p_lain + $zis;
                     $jml_diterima = $gaji_total - $jml_pot;
                     $lainnya = $data_rekap->p_donasi + $data_rekap->p_vipm + $data_rekap->p_qh + $data_rekap->p_dplk;
                     ?>
@@ -128,6 +129,7 @@
         <td>{{rupiah($gaji_total)}}</td>
         <td>{{rupiah($data_rekap->p_kasbon)}}</td>
         <td>{{rupiah($data_rekap->p_angs)}}</td>
+        <td>{{rupiah($data_rekap->p_angs_pkp)}}</td>
         <td>{{rupiah($data_rekap->p_simwa)}}</td>
         <td>{{rupiah($data_rekap->p_bpjs)}}</td>
         <td>{{rupiah($data_rekap->p_arisan)}}</td>

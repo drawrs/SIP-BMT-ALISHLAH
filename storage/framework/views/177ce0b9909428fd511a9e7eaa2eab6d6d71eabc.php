@@ -158,12 +158,15 @@
             <td><b><i><?php echo e($c_out->jenisCuti->name); ?></i></b></td>
             <td><?php echo e($c_out->note); ?></td>
             <td>
-              <?php if($c_out->status == 3): ?>
+              <?php if($c_out->status == 4): ?>
+                <b class="btn btn-danger btn-block">Dibatalkan</b>
+              <?php elseif($c_out->status == 3): ?>
                 <b class="btn btn-primary btn-block">Pending</b>
               <?php elseif($c_out->status == 2): ?>
                 <b class="btn btn-success btn-block">Wait : HRD</b>
               <?php elseif($c_out->status == 1): ?>
                 <b class="btn btn-warning btn-block">ACC</b>
+                <a href="<?php echo e(route('cuti_out.batal', ['c_out_id' => $c_out->id])); ?>" onClick="return confirm('Batalkan Cuti ?')" class="btn btn-danger btn-block btn-sm"  data-toggle="tooltip" data-placement="right" title="Klik untuk membatalkan cuti"><i class="glyphicon glyphicon-ban-circle"></i>  Batalkan Cuti</a>
               <?php elseif($c_out->status == 0): ?>
                 <b class="btn btn-danger btn-block">Ditolak</b>
               <?php endif; ?>

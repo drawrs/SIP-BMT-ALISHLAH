@@ -157,12 +157,15 @@
             <td><b><i>{{$c_out->jenisCuti->name}}</i></b></td>
             <td>{{$c_out->note}}</td>
             <td>
-              @if($c_out->status == 3)
+              @if($c_out->status == 4)
+                <b class="btn btn-danger btn-block">Dibatalkan</b>
+              @elseif($c_out->status == 3)
                 <b class="btn btn-primary btn-block">Pending</b>
               @elseif($c_out->status == 2)
                 <b class="btn btn-success btn-block">Wait : HRD</b>
               @elseif($c_out->status == 1)
                 <b class="btn btn-warning btn-block">ACC</b>
+                <a href="{{ route('cuti_out.batal', ['c_out_id' => $c_out->id]) }}" onClick="return confirm('Batalkan Cuti ?')" class="btn btn-danger btn-block btn-sm"  data-toggle="tooltip" data-placement="right" title="Klik untuk membatalkan cuti"><i class="glyphicon glyphicon-ban-circle"></i>  Batalkan Cuti</a>
               @elseif($c_out->status == 0)
                 <b class="btn btn-danger btn-block">Ditolak</b>
               @endif

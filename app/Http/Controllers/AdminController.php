@@ -439,7 +439,7 @@ class AdminController extends Controller
             return redirect('/');
         }
         $cuti = $opsi->orderBy('updated_at','desc')->get();
-        $cuti_ok = CutiOut::where('status', '1')->orderBy('updated_at','desc')->paginate(10);
+        $cuti_ok = CutiOut::whereIn('status', ['1', '4'])->orderBy('updated_at','desc')->paginate(10);
         return view('cuti.manage-cuti', compact('cuti', 'cuti_ok'));
     }
     public function cuti_aksi (Request $request)

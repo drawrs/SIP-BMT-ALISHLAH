@@ -186,6 +186,11 @@ Route::group(['middleware' => ['auth']], function (){
         'as' => 'status.del',
         'middleware' => 'admin'
         ]);
+    Route::get('/cuti_out_batal', [
+        'uses' => 'MainController@cuti_out_batal',
+        'as' => 'cuti_out.batal',
+        'middleware' => 'admin'
+        ]);
 });
      /*Route::get('/cek', function(){
         return view('tes');
@@ -262,6 +267,11 @@ Route::group(['middleware' => 'hrd'], function(){
          Route::any('/potongan/edit', [
             'uses' => 'GajiController@postEditPotongan',
             'as' => 'potongan.edit']);
+        // batalin cuti yang udah acc
+        Route::get('/cuti_out_batal', [
+            'uses' => 'MainController@cuti_out_batal',
+            'as' => 'cuti_out.batal'
+            ]);
 });
 
 Route::get('/print-struk-gaji', [

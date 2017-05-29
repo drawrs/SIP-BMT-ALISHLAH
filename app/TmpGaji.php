@@ -27,6 +27,7 @@ class TmpGaji extends Model
     'uang_transport',
     'p_kasbon',
     'p_angs',
+    'p_angs_pkp',
     'p_simwa',
     'p_bpjs',
     'p_arisan',

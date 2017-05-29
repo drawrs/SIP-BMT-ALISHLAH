@@ -99,6 +99,7 @@
           <th scope="col">JML GAJI</th>
           <th scope="col">KASBON</th>
           <th scope="col">ANGS</th>
+          <th scope="col">ANGS_PKP</th>
           <th scope="col">SIMWA</th>
           <th scope="col">BPJS</th>
           <th scope="col">ARISAN</th>
@@ -118,6 +119,7 @@
         $t_jml_gaji = 0;
         $t_kasbon = 0;
         $t_angs = 0;
+        $t_angs_pkp = 0;
         $t_simwa = 0;
         $t_bpjs = 0;
         $t_bpjs_kes = 0;
@@ -158,7 +160,7 @@
         $zis = hitung_zis($gaji_total, $data_rekap->p_zis);
 
         $lainnya = $data_rekap->p_donasi + $data_rekap->p_vipm + $data_rekap->p_qh + $data_rekap->p_dplk;
-        $jml_pot = $data_rekap->p_kasbon + $data_rekap->p_angs + $data_rekap->p_simwa + $data_rekap->p_bpjs + $data_rekap->p_arisan + $zis + $lainnya;
+        $jml_pot = $data_rekap->p_kasbon + $data_rekap->p_angs + $data_rekap->p_angs_pkp + $data_rekap->p_simwa + $data_rekap->p_bpjs + $data_rekap->p_arisan + $zis + $lainnya;
         $jml_diterima = $gaji_total - $jml_pot;
         ?>
         {{-- Perhitungan jika semua cabang--}}
@@ -172,6 +174,7 @@
             $t_jml_gaji += $gaji_total;
             $t_kasbon += $data_rekap->p_kasbon;
             $t_angs += $data_rekap->p_angs;
+            $t_angs_pkp += $data_rekap->p_angs_pkp;
             $t_simwa += $data_rekap->p_simwa;
             $t_bpjs +=$data_rekap->p_bpjs;
             $t_arisan += $data_rekap->p_arisan;
@@ -196,6 +199,7 @@
             $t_jml_gaji += $gaji_total;
             $t_kasbon += $data_rekap->p_kasbon;
             $t_angs += $data_rekap->p_angs;
+            $t_angs_pkp += $data_rekap->p_angs_pkp;
             $t_simwa += $data_rekap->p_simwa;
             $t_bpjs +=$data_rekap->p_bpjs;
             $t_arisan += $data_rekap->p_arisan;
@@ -234,6 +238,7 @@
           <td class="curr"><b><u>{{rupiah($t_jml_gaji)}}</u></b></td>
           <td class="curr"><b><u>{{rupiah($t_kasbon)}}</u></b></td>
           <td class="curr"><b><u>{{rupiah($t_angs)}}</u></b></td>
+          <td class="curr"><b><u>{{rupiah($t_angs_pkp)}}</u></b></td>
           <td class="curr"><b><u>{{rupiah($t_simwa)}}</u></b></td>
           <td class="curr"><b><u>{{rupiah($t_bpjs)}}</u></b></td>
           <td class="curr"><b><u>{{rupiah($t_arisan)}}</u></b></td>

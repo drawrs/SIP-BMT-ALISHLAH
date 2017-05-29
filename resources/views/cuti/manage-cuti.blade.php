@@ -96,7 +96,9 @@
           ?>
           <tr>
             <td>{{$c_out->kode}}</td>
-            <td>{{$c_out->user->name}}</td>
+            <td>
+              <a href='{{ route('karyawan.edit', ['id' => $c_out->user_id]) }}' target="blank">{{$c_out->user->name}}</a>
+            </td>
             <td>{{$c_out->user->detail->jabatan->name}}</td>
             <td>{{$c_out->qty}} Hari</td>
             <td>{{$from_ok}}</td>
@@ -104,12 +106,15 @@
             <td><b><i>{{$c_out->jenisCuti->name}}</i></b></td>
             <td>{{$c_out->note}}</td>
             <td>
-              @if($c_out->status == 3)
+              @if($c_out->status == 4)
+                <b class="btn btn-danger btn-block">Dibatalkan</b>
+              @elseif($c_out->status == 3)
               <b class="btn btn-danger btn-flat">Pending</b>
               @elseif($c_out->status == 2)
               <b class="btn btn-warning btn-flat">ACC Pimpinan cabang</b>
               @elseif($c_out->status == 1)
-              <b class="btn btn-warning btn-flat" style="">ACC</b>
+              <b class="btn btn-warning btn-flat btn-block" style="">ACC</b>
+              <a href="{{ route('cuti_out.batal', ['c_out_id' => $c_out->id]) }}" onClick="return confirm('Batalkan Cuti ?')" class="btn btn-danger btn-block btn-sm"  data-toggle="tooltip" data-placement="right" title="Klik untuk membatalkan cuti"><i class="glyphicon glyphicon-ban-circle"></i>  Batalkan Cuti</a>
               @elseif($c_out->status == 0)
               <b class="btn btn-danger btn-flat">Ditolak</b>
               @endif
